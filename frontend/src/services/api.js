@@ -64,5 +64,3 @@ export const api = {
     login: (email, password) =>
         request("POST", "/Auth/login", { Email: email, Password: password }),
 }
-
-//test
