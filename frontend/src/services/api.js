@@ -1,4 +1,4 @@
-const BASE_URL = "/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "/api";
 const LOGIN_REDIRECT_PATH = "/login";
 const TOKEN_KEY = "token"
 
@@ -50,7 +50,11 @@ const request = async (method, endpoint, body = null) => {
         return handleResponse(response, endpoint);
 
     } catch (error) {
+        if (error.message === "Failed to fetch") {
+            throw new Error("Network error: Please check your internet connection.");
+        }
         console.error(error);
+        throw error;
     }
 }
 

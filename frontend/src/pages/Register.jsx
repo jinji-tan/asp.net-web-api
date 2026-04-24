@@ -105,7 +105,11 @@ const Register = () => {
                         required: "Password is required",
                         minLength: {
                             value: 8,
-                            message: "Password must be at least 8 characters"
+                            message: "Password must be at least 8 characters",
+                        },
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                            message: "Must include uppercase, lowercase, and a number"
                         }
                     })}
                     className="border-2 border-slate-500 rounded-xl w-full px-3 py-2 bg-slate-800 text-white"
