@@ -25,8 +25,8 @@ const Register = () => {
             );
 
             localStorage.setItem("token", response.token);
-            alert(response.message);
             navigate("/");
+            alert(response.message);
         } catch (error) {
             setError("root", {
                 message: error?.message || "Something went wrong"
@@ -38,7 +38,7 @@ const Register = () => {
         <div className="min-h-screen  w-screen flex items-center justify-center bg-slate-800">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="bg-slate-700 min-h-125 w-100 gap-5 flex flex-col justify-center items-center font-serif text-xl rounded-3xl shadow-slate-950 shadow-xl p-6"
+                className="bg-slate-700 min-h-fit w-100 gap-5 flex flex-col justify-center items-center font-serif text-xl rounded-3xl shadow-slate-950 shadow-xl p-6"
             >
                 {/* Title */}
                 <div className="text-5xl font-bold text-white">
@@ -100,19 +100,17 @@ const Register = () => {
                 <input
                     type="password"
                     placeholder="Password"
+                    autoComplete="new-password" // Updated for Registration
                     disabled={isSubmitting}
                     {...register("password", {
                         required: "Password is required",
-                        minLength: {
-                            value: 8,
-                            message: "Password must be at least 8 characters",
-                        },
                         pattern: {
-                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-                            message: "Must include uppercase, lowercase, and a number"
-                        }
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{8,}$/,
+                            message: "8+ characters with uppercase, lowercase, and a number (no spaces)",
+                        },
                     })}
-                    className="border-2 border-slate-500 rounded-xl w-full px-3 py-2 bg-slate-800 text-white"
+                    className={`border-2 border-slate-500 rounded-xl w-full px-3 py-2 bg-slate-800 text-white transition-opacity ${isSubmitting ? "opacity-50 cursor-not-allowed" : "opacity-100"
+                        }`}
                 />
                 {errors.password && (
                     <p className="text-red-400 text-sm">{errors.password.message}</p>

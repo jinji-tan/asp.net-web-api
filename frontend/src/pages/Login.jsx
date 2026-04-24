@@ -32,7 +32,7 @@ const Login = () => {
         <div className="min-h-screen w-screen flex items-center justify-center bg-slate-800">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="bg-slate-700 h-100 w-100 gap-5 flex flex-col justify-center items-center font-serif text-xl rounded-3xl shadow-slate-950 shadow-xl p-6"
+                className="bg-slate-700 h-auto w-100 gap-5 flex flex-col justify-center items-center font-serif text-xl rounded-3xl shadow-slate-950 shadow-xl p-6"
             >
                 {/* Title */}
                 <h1 className="text-5xl font-bold text-white">
@@ -62,13 +62,16 @@ const Login = () => {
 
                 {/* Password */}
                 <input
+                    id="password"
                     type="password"
                     placeholder="Password"
+                    autoComplete="current-password"
                     disabled={isSubmitting}
                     {...register("password", {
                         required: "Password is required"
                     })}
-                    className="border-2 border-slate-500 rounded-xl w-full px-3 py-2 bg-slate-800 text-white"
+                    className={`border-2 border-slate-500 rounded-xl w-full px-3 py-2 bg-slate-800 text-white transition-opacity ${isSubmitting ? "opacity-50 cursor-not-allowed" : "opacity-100"
+                        }`}
                 />
                 {errors.password && (
                     <p className="text-red-400 text-sm">
@@ -80,9 +83,8 @@ const Login = () => {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`bg-slate-500 text-slate-900 rounded-2xl w-35 py-2 hover:bg-slate-800 hover:text-slate-500 border-2 border-slate-900 ${
-                        isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`bg-slate-500 text-slate-900 rounded-2xl w-35 py-2 hover:bg-slate-800 hover:text-slate-500 border-2 border-slate-900 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                 >
                     {isSubmitting ? "Logging in..." : "Login"}
                 </button>
